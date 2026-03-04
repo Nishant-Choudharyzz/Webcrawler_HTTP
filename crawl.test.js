@@ -33,12 +33,26 @@ test('getURLsFromHTML absolute', ()=>{
     const inputHTMLBody = `
     <html>
         <body>
-            <a href = "https://abc.dev">
+            <a href = "https://abc.dev/path/">
         </body>
     </html>
     `;
-    const inputBaseURl = "abc.dev";
+    const inputBaseURl = "abc.dev/path/";
     const actual = getURLsFromHTML(inputHTMLBody, inputBaseURl);
-    const expected  = ["https://abc.dev/"];
+    const expected  = ["https://abc.dev/path/"];
+    expect(actual).toEqual(expected);
+})
+
+test('getURLsFromHTML relative', ()=>{
+    const inputHTMLBody = `
+    <html>
+        <body>
+            <a href = "/path/">
+        </body>
+    </html>
+    `;
+    const inputBaseURl = "https://abc.dev";
+    const actual = getURLsFromHTML(inputHTMLBody, inputBaseURl);
+    const expected  = ["https://abc.dev/path/"];
     expect(actual).toEqual(expected);
 })
